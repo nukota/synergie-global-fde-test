@@ -55,7 +55,7 @@ To support Conflict Detection and safe booking lifecycles with minimal setup tim
 - `tutor_id` (String)
 - `room_id` (String)
 - `start_time` (Timestamp/Datetime)
-- `end_time` (Timestamp/Datetime)
+- `duration` (Integer)
 - `status` (String/Enum: ACTIVE, CANCELLED, NO_SHOW)
 - `cancelled_at` (Timestamp/Datetime, Nullable)
 - `created_at` (Timestamp/Datetime)
