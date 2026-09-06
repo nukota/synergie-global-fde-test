@@ -26,10 +26,11 @@
 
 1. Safe Booking Lifecycle: Create, move, or cancel with strict conflict detection to prevent double bookings.
 2. 16:00 Cut-off Versioning: Audit trail to highlight late changes instead of silently overwriting the schedule.
-3. Tutor Load Enforcement: System validation to block more than 6 lessons per tutor daily.
-4. Daily Dashboard: A read-only "today at a glance" view for the owner and receptionist.
-5. Tutor Notifications: Reliable, automated alerts for late cancellations and schedule updates.
-6. Data Importer: Tooling to safely ingest and sanitize the existing legacy spreadsheet.
+3. Shared/Group Booking (Exam Season): Allow adding another student to an existing booking slot.
+4. Tutor Load Enforcement: System validation to block more than 6 lessons per tutor daily.
+5. Daily Dashboard: A read-only "today at a glance" view for the owner and receptionist.
+6. Tutor Notifications: Reliable, automated alerts for late cancellations and schedule updates.
+7. Data Importer: Tooling to safely ingest and sanitize the existing legacy spreadsheet.
 
 **The Choice: Safe Booking Lifecycle (Conflict Detection)**
 
@@ -39,6 +40,8 @@
   - Tutor Overload: The system will not enforce the 6-lesson daily limit per tutor, so Mai can still manually break this rule when desperate.
 
   - Silent Overwrites: Schedule changes made after the 16:00 cut-off will still quietly overwrite the schedule rather than preserving a visible history of what the tutor was originally told.
+
+  - Group/Shared Bookings: The system will not natively support adding a second student to an existing booking slot for exam-season group sessions.
 
   - Tutor Confusion: Without automated notifications, tutors may still suffer from receiving multiple confusing schedule messages from reception.
 
@@ -56,6 +59,7 @@ To support Conflict Detection and safe booking lifecycles with minimal setup tim
 - `status` (String/Enum: ACTIVE, CANCELLED, NO_SHOW)
 - `cancelled_at` (Timestamp/Datetime, Nullable)
 - `created_at` (Timestamp/Datetime)
+- `shared` (Boolean)
 
 **Handling Cancelled or Moved Bookings (The 16:00 Rule)**
 To respect the rule that schedule changes must be visible rather than quietly overwritten:
