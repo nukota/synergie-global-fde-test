@@ -6,7 +6,7 @@
 
 | QUESTION FOR THE OWNER                                                                     | SCENARIO & IMPACT ON THE BUILD                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Are tutors paid directly based on this system's data?**                                  | **If yes:** Schema requires explicit billing statuses (`CANCELLED_EARLY_FREE`, `CANCELLED_LATE_PAID`, `NO_SHOW_PAID`) to ensure accurate compensation under the 4-hour rule.<br><br>**If no:** Data model remains simple. Cancellations purely act as scheduling operations to free rooms and slots without complex financial tracking flags.                                                                                                                     |
+| **Are tutors paid directly based on this system's data?**                                  | **If yes:** Schema requires explicit billing statuses (`CANCELLED_EARLY_FREE`, `CANCELLED_LATE_PAID`, `NO_SHOW_PAID`) to ensure accurate compensation under the 4-hour rule.<br><br>**If no:** Data model remains simple. Cancellations don't need complex financial tracking flags.                                                                                                                                                                              |
 | **How should we handle historical data (the seed export) that violates new strict rules?** | **If we enforce rules on new bookings only (Recommended):** System allows raw import of messy history to retain operational records. Conflict detection logic strictly intercepts and blocks only new `POST/PUT` requests.<br><br>**If the system must reject old conflicting data:** I must write a data-sanitization script to quarantine overlapping historical records into a separate **"Conflict Review"** table for manual resolution by the receptionist. |
 
 **Inconsistencies & Readings:**
@@ -18,6 +18,7 @@
 
 - "Mid-morning to mid-evening" means 09:00 to 21:00.
 - Bookings only occur on the hour or half-hour, making time-overlap calculations simpler.
+- Configurable 30-minute buffer: The centre requires a buffer time between lessons in the same room. Implemented as a simple config variable for easy adjustment later.
 
 ## Phase 2: Choose what to build
 
